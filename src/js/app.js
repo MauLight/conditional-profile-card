@@ -1,3 +1,4 @@
+import { name } from "file-loader";
 import "../style/index.css";
 
 /**
@@ -6,7 +7,7 @@ import "../style/index.css";
  * 
     {
         includeCover: true, // if includeCover is true the algorithm should
-        background: "https://images.unsplash.com/photo-1511974035430-5de47d3b95da", // this is the url of the image that will used as background for the profile cover
+        background: "https://images.unsplash.com/photo-1511974035430-5de47d3b95da", // this is the url of the image that will be used as background for the profile cover
         avatarURL: "https://randomuser.me/api/portraits/women/42.jpg", // this is the url for the profile avatar
         socialMediaPosition: "left", // social media bar position (left or right)
         
@@ -29,18 +30,40 @@ function render(variables = {}) {
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
 
+  let name = "";
+  if (variables.name !== "") name = variables.name;
+
+  let lastname = "";
+  if (variables.lastname !== "") lastname = variables.lastname;
+
+  let position = "";
+  if (variables.socialMediaPosition !== "")
+    position = variables.socialMediaPosition;
+
+  let twitter = "";
+  if (variables.twitter !== "") twitter = variables.twitter;
+
+  let github = "";
+  if (variables.github !== "") github = variables.github;
+
+  let linkedin = "";
+  if (variables.linkedin !== "") linkedin = variables.linkedin;
+
+  let instagram = "";
+  if (variables.instagram !== "") instagram = variables.instagram;
+
   // reset the website body with the new html output
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
           <img src="${variables.avatarURL}" class="photo" />
-          <h1>Lucy Boilett</h1>
-          <h2>Web Developer</h2>
-          <h3>Miami, USA</h3>
-          <ul class="position-right">
-            <li><a href="https://twitter.com/4geeksacademy"><i class="fab fa-twitter"></i></a></li>
-            <li><a href="https://github.com/4geeksacademy"><i class="fab fa-github"></i></a></li>
-            <li><a href="https://linkedin.com/4geeksacademy"><i class="fab fa-linkedin"></i></a></li>
-            <li><a href="https://instagram.com/4geeksacademy"><i class="fab fa-instagram"></i></a></li>
+          <h1>${variables.name} ${variables.lastname}</h1>
+          <h2>${variables.role}</h2>
+          <h3>${variables.country}</h3>
+          <ul class="${position}">
+            <li><a href="${variables.twitter}"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="${variables.github}"><i class="fab fa-github"></i></a></li>
+            <li><a href="${variables.linkedin}"><i class="fab fa-linkedin"></i></a></li>
+            <li><a href="${variables.instagram}"><i class="fab fa-instagram"></i></a></li>
           </ul>
         </div>
     `;
@@ -53,10 +76,12 @@ window.onload = function() {
   window.variables = {
     // if includeCover is true the algorithm should
     includeCover: true,
-    // this is the url of the image that will used as background for the profile cover
-    background: "https://images.unsplash.com/photo-1511974035430-5de47d3b95da",
+    // this is the url of the image that will be used as background for the profile cover
+    background:
+      "https://images.unsplash.com/photo-1656062470400-8b4137be5562?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1958&q=80",
     // this is the url for the profile avatar
-    avatarURL: "https://randomuser.me/api/portraits/women/42.jpg",
+    avatarURL:
+      "https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1780&q=80",
     // social media bar position (left or right)
     socialMediaPosition: "position-left",
     // social media usernames
@@ -64,11 +89,11 @@ window.onload = function() {
     github: "alesanchezr",
     linkedin: null,
     instagram: null,
-    name: null,
-    lastname: null,
-    role: null,
-    country: null,
-    city: null
+    name: "input",
+    lastname: "name",
+    role: "add role",
+    country: "add country",
+    city: "add city"
   };
   render(window.variables); //render the card for the first time
 
